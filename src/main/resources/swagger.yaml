@@ -1,0 +1,307 @@
+swagger: '2.0'
+info:
+  title: Payment API
+  description: A REST API to manage Payments
+  version: "1.0.0"
+host: api.NUNO.com
+schemes:
+  - https
+basePath: /v1
+produces:
+  - application/json
+parameters:
+  PaymentId:
+    in: path
+    name: paymentId
+    description: The ID of the payment
+    required: true
+    type: "string"
+paths:
+  /payments:
+    post:
+      summary: Creates a payment
+      description:
+        This endpoint is for creating a payment
+      operationId: createPayment
+      tags:
+        - Payments
+      parameters:
+        - in: body
+          name: Payment
+          description: The Payment to be created
+          required: true
+          schema:
+            $ref: "#/definitions/PaymentDto"
+      responses:
+        201:
+          description: Payment has been created
+          schema:
+            $ref: '#/definitions/IdResponse'
+        400:
+          description: Payment found with same id
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    get:
+      summary: Gets a list of payments
+      description: |
+        This endpoint is for getting all payments or a filtered subset
+      operationId: getAllPayments
+      tags:
+        - Payments
+      responses:
+        200:
+          description: Payments found
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/PaymentDto"
+  /payments/{paymentId}:
+    get:
+      summary: Gets a payment
+      description: |
+        This endpoint is for getting a payment.
+      operationId: getPayment
+      tags:
+        - Payments
+      parameters:
+        - $ref: '#/parameters/PaymentId'
+      responses:
+        200:
+          description: Payment found
+          schema:
+            $ref: "#/definitions/PaymentDto"
+        404:
+          description: Payment not found
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    put:
+      summary: Updates a payment
+      description: |
+        This endpoint is for updating a payment.
+      operationId: updatePayment
+      tags:
+        - Payments
+      parameters:
+        - in: body
+          name: paymentRequest
+          description: The updated payment
+          required: true
+          schema:
+            $ref: "#/definitions/PaymentDto"
+      responses:
+        200:
+          description: Payment updated
+        400:
+          description: Request validation failed
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+        404:
+          description: Payment not found
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+    delete:
+      summary: Deletes a payment
+      description: |
+        This endpoint is for deleting a payment
+      operationId: deletePayment
+      tags:
+        - Payments
+      parameters:
+        - $ref: '#/parameters/PaymentId'
+      responses:
+        200:
+          description: Payment deleted
+        404:
+          description: Payment not found
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+definitions:
+  PaymentDto:
+    type: object
+    required:
+      - "type"
+      - "id"
+      - "version"
+      - "organisation_id"
+      - "attributes"
+    properties:
+      type:
+        type: "string"
+      id:
+        type: "string"
+      version:
+        type: "number"
+      organisation_id:
+        type: "string"
+      attributes:
+        required:
+          - "amount"
+          - "beneficiary_party"
+          - "charges_information"
+          - "currency"
+          - "debtor_party"
+          - "end_to_end_reference"
+          - "fx"
+          - "numeric_reference"
+          - "payment_id"
+          - "payment_purpose"
+          - "payment_scheme"
+          - "payment_type"
+          - "processing_date"
+          - "reference"
+          - "scheme_payment_sub_type"
+          - "scheme_payment_type"
+          - "sponsor_party"
+        properties:
+          amount:
+            type: "string"
+          beneficiary_party:
+            required:
+              - "account_name"
+              - "account_number"
+              - "account_number_code"
+              - "account_type"
+              - "address"
+              - "bank_id"
+              - "bank_id_code"
+              - "name"
+            properties:
+              account_name:
+                type: "string"
+              account_number:
+                type: "string"
+              account_number_code:
+                type: "string"
+              account_type:
+                type: "number"
+              address:
+                type: "string"
+              bank_id:
+                type: "string"
+              bank_id_code:
+                type: "string"
+              name:
+                type: "string"
+            type: "object"
+          charges_information:
+            required:
+              - "bearer_code"
+              - "sender_charges"
+              - "receiver_charges_amount"
+              - "receiver_charges_currency"
+            properties:
+              bearer_code:
+                type: "string"
+              sender_charges:
+                type: "array"
+                items:
+                  type: "object"
+                  properties:
+                    amount:
+                      type: "string"
+                    currency:
+                      type: "string"
+              receiver_charges_amount:
+                type: "string"
+              receiver_charges_currency:
+                type: "string"
+            type: "object"
+          currency:
+            type: "string"
+          debtor_party:
+            required:
+              - "account_name"
+              - "account_number"
+              - "account_number_code"
+              - "address"
+              - "bank_id"
+              - "bank_id_code"
+              - "name"
+            properties:
+              account_name:
+                type: "string"
+              account_number:
+                type: "string"
+              account_number_code:
+                type: "string"
+              address:
+                type: "string"
+              bank_id:
+                type: "string"
+              bank_id_code:
+                type: "string"
+              name:
+                type: "string"
+            type: "object"
+          end_to_end_reference:
+            type: "string"
+          fx:
+            required:
+              - "contract_reference"
+              - "exchange_rate"
+              - "original_amount"
+              - "original_currency"
+            properties:
+              contract_reference:
+                type: "string"
+              exchange_rate:
+                type: "string"
+              original_amount:
+                type: "string"
+              original_currency:
+                type: "string"
+            type: "object"
+          numeric_reference:
+            type: "string"
+          payment_id:
+            type: "string"
+          payment_purpose:
+            type: "string"
+          payment_scheme:
+            type: "string"
+          payment_type:
+            type: "string"
+          processing_date:
+            type: "string"
+          reference:
+            type: "string"
+          scheme_payment_sub_type:
+            type: "string"
+          scheme_payment_type:
+            type: "string"
+          sponsor_party:
+            required:
+              - "account_number"
+              - "bank_id"
+              - "bank_id_code"
+            properties:
+              account_number:
+                type: "string"
+              bank_id:
+                type: "string"
+              bank_id_code:
+                type: "string"
+            type: "object"
+        type: "object"
+
+  ErrorResponse:
+    type: object
+    properties:
+      errors:
+        type: array
+        items:
+          $ref: "#/definitions/FieldErrorResponse"
+
+  FieldErrorResponse:
+    type: object
+    properties:
+      fieldName:
+        type: string
+      message:
+        type: string
+
+  IdResponse:
+    type: object
+    properties:
+      id:
+        type: string
