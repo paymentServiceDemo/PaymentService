@@ -27,7 +27,7 @@
         <swagger.version>1.5.4</swagger.version>
         <springfox.version>2.4.0</springfox.version>
         <guava.version>22.0</guava.version>
-        <lombok.version>1.16.18</lombok.version>
+        <lombok.version>1.18.2</lombok.version>
         <retrofit.version>2.2.0</retrofit.version>
         <apache.commons.lang.version>3.5</apache.commons.lang.version>
         <oltu.version>1.0.0</oltu.version>
