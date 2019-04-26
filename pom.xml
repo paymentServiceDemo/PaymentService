@@ -42,7 +42,7 @@
         <groovy-all.version>2.4.10</groovy-all.version>
         <h2.version>1.4.195</h2.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
-        <cglib.version>3.2.4</cglib.version>
+        <cglib.version>3.2.11</cglib.version>
     </properties>
 
     <dependencies>
