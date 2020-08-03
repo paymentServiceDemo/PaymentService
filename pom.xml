@@ -31,7 +31,7 @@
         <retrofit.version>2.4.0</retrofit.version>
         <apache.commons.lang.version>3.5</apache.commons.lang.version>
         <oltu.version>1.0.0</oltu.version>
-        <jackson-datatype-jsr310.version>2.6.1</jackson-datatype-jsr310.version>
+        <jackson-datatype-jsr310.version>2.11.2</jackson-datatype-jsr310.version>
         <maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
         <build-helper-maven-plugin.version>1.10</build-helper-maven-plugin.version>
         <dockerfile-maven-plugin.version>1.3.4</dockerfile-maven-plugin.version>
